@@ -1,0 +1,2523 @@
+<!doctype html>
+<html lang="ru" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Починим и соберём — Ремонт мебели и сборка офисной мебели в Москве
+      (Алексей)
+    </title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome для иконок -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            colors: {
+              wood: {
+                50: "#fdf8f3",
+                100: "#faeee1",
+                500: "#d97706", // Тёплый янтарно-древесный акцент
+                600: "#b45309",
+                700: "#92400e",
+              },
+              slate: {
+                850: "#172033",
+                900: "#0f172a",
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      /* Кастомные стили для плавности и интерактивных элементов */
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f8fafc;
+        color: #0f172a;
+      }
+      .wood-gradient {
+        background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+      }
+      .hero-pattern {
+        background-color: #0f172a;
+        background-image: radial-gradient(
+          rgba(217, 119, 6, 0.14) 1px,
+          transparent 1px
+        );
+        background-size: 24px 24px;
+      }
+      /* Стили для ползунка До/После */
+      .comparison-slider {
+        position: relative;
+        overflow: hidden;
+        user-select: none;
+      }
+      .comparison-before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 50%;
+        overflow: hidden;
+        z-index: 10;
+      }
+      .comparison-handle {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        width: 3px;
+        background: #ffffff;
+        z-index: 20;
+        cursor: ew-resize;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+      /* Скрытие скроллбара для горизонтальных табов на мобильных */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+  </head>
+  <body class="antialiased selection:bg-amber-500 selection:text-white">
+    <!-- ВСПЛЫВАЮЩЕЕ УВЕДОМЛЕНИЕ (TOAST) -->
+    <div
+      id="toast"
+      class="fixed bottom-5 right-5 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none max-w-sm bg-slate-900 text-white px-5 py-4 rounded-2xl shadow-2xl border border-slate-700 flex items-center gap-3"
+    >
+      <div
+        class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0"
+      >
+        <i id="toast-icon" class="fa-solid fa-check"></i>
+      </div>
+      <p id="toast-message" class="text-sm font-medium"></p>
+    </div>
+
+    <!-- ВЕРХНЯЯ ИНФОРМАЦИОННАЯ ПАНЕЛЬ (БЕЗ ПОСРЕДНИКОВ) -->
+    <div
+      class="bg-slate-900 text-slate-300 text-xs sm:text-sm py-2 px-4 border-b border-slate-800"
+    >
+      <div
+        class="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2"
+      >
+        <div class="flex items-center gap-2">
+          <span
+            class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"
+          ></span>
+          <span
+            ><strong class="text-white">Прямой контакт с мастером:</strong> без
+            наценок агрегаторов и посредников</span
+          >
+        </div>
+        <div class="hidden md:flex items-center gap-5 text-slate-400">
+          <span
+            ><i class="fa-solid fa-location-dot text-amber-500 mr-1"></i> База:
+            САО, Войковский р-н (выезд по всей Москве)</span
+          >
+          <span
+            ><i class="fa-solid fa-calendar-check text-amber-500 mr-1"></i>
+            Только в будни (Пн–Пт): 09:00 – 18:00</span
+          >
+          <a
+            href="https://t.me/Alex_mebell"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-sky-400 hover:text-sky-300 font-bold flex items-center gap-1 transition-colors"
+          >
+            <i class="fa-brands fa-telegram"></i>
+            <span>@Alex_mebell</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ШАПКА САЙТА (HEADER) -->
+    <header
+      class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm"
+    >
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between py-3"
+      >
+        <!-- Логотип -->
+        <a href="#" class="flex items-center gap-3 group">
+          <div
+            class="w-11 h-11 rounded-xl wood-gradient flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform"
+          >
+            <i class="fa-solid fa-screwdriver-wrench text-lg"></i>
+          </div>
+          <div>
+            <div
+              class="font-extrabold text-lg sm:text-xl tracking-tight text-slate-900 leading-none"
+            >
+              Починим и <span class="text-amber-600">соберём</span>
+            </div>
+            <div class="text-xs text-slate-500 font-medium mt-1">
+              Ремонт мебели • Офисные переезды
+            </div>
+          </div>
+        </a>
+
+        <!-- Навигация (Десктоп) -->
+        <nav
+          class="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-600"
+        >
+          <a href="#services" class="hover:text-amber-600 transition-colors"
+            >Услуги и цены</a
+          >
+          <a href="#work-photos" class="hover:text-amber-600 transition-colors"
+            >Мастер за работой</a
+          >
+          <a href="#portfolio" class="hover:text-amber-600 transition-colors"
+            >Разбор поломок</a
+          >
+          <a
+            href="#masters"
+            class="hover:text-amber-600 transition-colors flex items-center gap-1.5"
+          >
+            <span>Мастера</span>
+            <span
+              class="bg-amber-100 text-amber-800 text-[11px] px-2 py-0.5 rounded-full font-bold"
+              >Команда</span
+            >
+          </a>
+          <a href="#districts" class="hover:text-amber-600 transition-colors"
+            >Районы выезда</a
+          >
+        </nav>
+
+        <!-- Кнопки действий (Поделиться + Telegram + Заявка) -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <!-- Прямая кнопка Telegram @Alex_mebell -->
+          <a
+            href="https://t.me/Alex_mebell?text=Здравствуйте,%20Алексей!%20Пишу%20с%20сайта%20«Починим%20и%20соберём».%20Хочу%20проконсультироваться%20по%20ремонту/сборке:"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Написать Алексею напрямую в Telegram @Alex_mebell"
+            class="flex items-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 font-bold text-xs sm:text-sm transition-all active:scale-95"
+          >
+            <i class="fa-brands fa-telegram text-sky-500 text-base"></i>
+            <span class="hidden md:inline">@Alex_mebell</span>
+          </a>
+
+          <!-- Кнопка "Поделиться с соседом / другом" -->
+          <button
+            onclick="openShareModal()"
+            title="Поделиться контактом мастера или показать QR-код"
+            class="flex items-center gap-2 px-3 sm:px-3.5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs sm:text-sm transition-all active:scale-95"
+          >
+            <i class="fa-solid fa-share-nodes text-amber-600"></i>
+            <span class="hidden xl:inline">Поделиться</span>
+          </button>
+
+          <!-- Кнопка оценки по фото -->
+          <a
+            href="#order-form"
+            class="wood-gradient hover:opacity-95 text-white font-bold text-xs sm:text-sm px-4 sm:px-5 py-2.5 rounded-xl shadow-md shadow-amber-600/20 flex items-center gap-2 transition-all active:scale-95"
+          >
+            <i class="fa-solid fa-camera"></i>
+            <span>Оценить по фото</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- HERO-СЕКЦИЯ (ПЕРВЫЙ ЭКРАН) -->
+    <section
+      class="hero-pattern text-white pt-10 pb-16 lg:py-20 relative overflow-hidden"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div
+          class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center"
+        >
+          <!-- Левая колонка: Оффер и ключевые услуги с ценами -->
+          <div class="lg:col-span-7 space-y-6">
+            <!-- Локальный бейдж -->
+            <div
+              class="inline-flex flex-wrap items-center gap-2 bg-slate-800/90 border border-slate-700 rounded-full px-4 py-1.5 text-xs sm:text-sm text-amber-400 font-medium"
+            >
+              <i class="fa-solid fa-location-dot"></i>
+              <span
+                >Войковский район, САО, СЗАО + вся Москва • Будни (Пн–Пт) в
+                рабочие часы</span
+              >
+            </div>
+
+            <h1
+              class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight"
+            >
+              Профессиональный
+              <span class="text-amber-400">ремонт домашней мебели</span> и
+              сборка при офисных переездах
+            </h1>
+
+            <p
+              class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl"
+            >
+              Здравствуйте! Меня зовут
+              <strong class="text-white">Алексей, мне 45 лет</strong>. Более
+              <strong class="text-amber-300">7 лет</strong> занимаюсь сборкой и
+              разборкой офисной мебели, а также качественным ремонтом кухонной
+              мебели, кроватей и дверей без посредников.
+              <span class="text-slate-400 text-sm block mt-1"
+                >*Обратите внимание: сборкой бытовых кухонь и шкафов с нуля мы
+                не занимаемся — специализируемся именно на сложном ремонте
+                крепежа и офисных переездах.</span
+              >
+            </p>
+
+            <!-- 4 Главных направления с точными ценами -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+              <div
+                class="bg-slate-800/80 border border-slate-700 p-4 rounded-2xl flex items-center justify-between gap-3"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0"
+                  >
+                    <i class="fa-solid fa-door-open"></i>
+                  </div>
+                  <div>
+                    <div class="font-bold text-sm text-white">
+                      Ремонт вырванных петель
+                    </div>
+                    <div class="text-xs text-slate-400">
+                      Кухонные фасады, шкафы, двери
+                    </div>
+                  </div>
+                </div>
+                <span
+                  class="text-amber-400 font-extrabold text-sm whitespace-nowrap"
+                  >от 5 000 ₽</span
+                >
+              </div>
+
+              <div
+                class="bg-slate-800/80 border border-slate-700 p-4 rounded-2xl flex items-center justify-between gap-3"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0"
+                  >
+                    <i class="fa-solid fa-box-archive"></i>
+                  </div>
+                  <div>
+                    <div class="font-bold text-sm text-white">
+                      Вырванные направляющие
+                    </div>
+                    <div class="text-xs text-slate-400">
+                      Ремонт выдвижных ящиков
+                    </div>
+                  </div>
+                </div>
+                <span
+                  class="text-amber-400 font-extrabold text-sm whitespace-nowrap"
+                  >от 5 000 ₽</span
+                >
+              </div>
+
+              <div
+                class="bg-slate-800/80 border border-slate-700 p-4 rounded-2xl flex items-center justify-between gap-3"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0"
+                  >
+                    <i class="fa-solid fa-bed"></i>
+                  </div>
+                  <div>
+                    <div class="font-bold text-sm text-white">
+                      Устранение скрипа кровати
+                    </div>
+                    <div class="text-xs text-slate-400">
+                      Укрепление каркаса и узлов
+                    </div>
+                  </div>
+                </div>
+                <span
+                  class="text-emerald-400 font-extrabold text-sm whitespace-nowrap"
+                  >от 7 000 ₽</span
+                >
+              </div>
+
+              <div
+                class="bg-slate-800/80 border border-slate-700 p-4 rounded-2xl flex items-center justify-between gap-3"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center shrink-0"
+                  >
+                    <i class="fa-solid fa-building"></i>
+                  </div>
+                  <div>
+                    <div class="font-bold text-sm text-white">
+                      Офисная мебель (переезд)
+                    </div>
+                    <div class="text-xs text-slate-400">
+                      Сборка / разборка, стаж 7+ лет
+                    </div>
+                  </div>
+                </div>
+                <span
+                  class="text-sky-400 font-extrabold text-sm whitespace-nowrap"
+                  >от 600 ₽</span
+                >
+              </div>
+            </div>
+
+            <!-- Кнопки CTA -->
+            <div class="flex flex-col sm:flex-row flex-wrap gap-3.5 pt-2">
+              <a
+                href="https://t.me/Alex_mebell?text=Здравствуйте,%20Алексей!%20Пишу%20с%20сайта%20«Починим%20и%20соберём».%20Прикрепляю%20фото%20мебели%20для%20оценки%20ремонта:"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bg-sky-500 hover:bg-sky-600 text-white font-bold text-base px-6 py-4 rounded-2xl shadow-lg shadow-sky-500/25 flex items-center justify-center gap-3 transition-all active:scale-95"
+              >
+                <i class="fa-brands fa-telegram text-xl"></i>
+                <span>Прислать фото в @Alex_mebell</span>
+              </a>
+              <a
+                href="#order-form"
+                class="wood-gradient hover:opacity-95 text-white font-bold text-base px-6 py-4 rounded-2xl shadow-lg shadow-amber-600/25 flex items-center justify-center gap-2.5 transition-all active:scale-95"
+              >
+                <i class="fa-solid fa-camera"></i>
+                <span>Оформить заявку на сайте</span>
+              </a>
+              <a
+                href="#services"
+                class="bg-slate-800 hover:bg-slate-700 text-white border border-slate-600 font-semibold text-base px-6 py-4 rounded-2xl flex items-center justify-center gap-2.5 transition-all active:scale-95"
+              >
+                <i class="fa-solid fa-calculator text-amber-400"></i>
+                <span>Калькулятор цен</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Правая колонка: Карточка главного мастера Алексея с реальным фото -->
+          <div class="lg:col-span-5">
+            <div
+              class="bg-white text-slate-900 rounded-3xl p-5 sm:p-6 shadow-2xl border border-slate-100 relative"
+            >
+              <!-- Статус и график -->
+              <div
+                class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100"
+              >
+                <div
+                  class="flex items-center gap-2 bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold"
+                >
+                  <span
+                    class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"
+                  ></span>
+                  <span>График: Будни (Пн–Пт), 09:00–18:00</span>
+                </div>
+                <span class="text-xs font-semibold text-slate-400"
+                  >Мастер #01</span
+                >
+              </div>
+
+              <!-- Большое реальное фото Алексея -->
+              <div
+                class="relative rounded-2xl overflow-hidden mb-4 bg-slate-100 aspect-[4/4] sm:aspect-[4/3.6] shadow-inner border border-slate-200"
+              >
+                <img
+                  src="./image_e8dd39.jpeg"
+                  alt="Мастер Алексей — ремонт мебели и сборка офисной мебели"
+                  onerror="
+                    this.onerror = null;
+                    this.src =
+                      'https://placehold.co/600x550/1e293b/f59e0b?text=%D0%9C%D0%B0%D1%81%D1%82%D0%B5%D1%80+%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B5%D0%B9';
+                  "
+                  class="w-full h-full object-cover object-top"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"
+                ></div>
+                <div
+                  class="absolute bottom-3 left-3 right-3 text-white flex items-end justify-between"
+                >
+                  <div>
+                    <span
+                      class="bg-amber-500 text-slate-950 text-[11px] font-extrabold px-2.5 py-0.5 rounded-md uppercase tracking-wider"
+                      >Реальное фото</span
+                    >
+                    <h2 class="text-xl font-extrabold mt-1">Алексей, 45 лет</h2>
+                    <p class="text-xs text-slate-200">
+                      Частный мастер • Стаж более 7 лет
+                    </p>
+                  </div>
+                  <div
+                    class="flex items-center gap-1 bg-slate-900/80 backdrop-blur-sm px-2.5 py-1 rounded-xl text-amber-400 text-xs font-bold"
+                  >
+                    <i class="fa-solid fa-star"></i>
+                    <span>5.0</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Факты о мастере -->
+              <div
+                class="space-y-2.5 text-xs sm:text-sm bg-slate-50 p-4 rounded-2xl border border-slate-100 mb-4"
+              >
+                <div class="flex items-start gap-2.5">
+                  <i
+                    class="fa-solid fa-briefcase text-amber-600 mt-1 w-4 text-center"
+                  ></i>
+                  <div>
+                    <span class="text-slate-500">Опыт работы:</span>
+                    <strong class="text-slate-800">
+                      более 7 лет сборки офисной мебели и сложного ремонта
+                      петель, ящиков и кроватей</strong
+                    >
+                  </div>
+                </div>
+                <div class="flex items-start gap-2.5">
+                  <i
+                    class="fa-solid fa-house-chimney text-amber-600 mt-1 w-4 text-center"
+                  ></i>
+                  <div>
+                    <span class="text-slate-500">Домашний район:</span>
+                    <strong class="text-slate-800">
+                      Москва, Войковский р-н, САО (выезжаю по всему округу и
+                      всей Москве)</strong
+                    >
+                  </div>
+                </div>
+                <div class="flex items-start gap-2.5">
+                  <i
+                    class="fa-solid fa-calendar-day text-amber-600 mt-1 w-4 text-center"
+                  ></i>
+                  <div>
+                    <span class="text-slate-500">Режим работы:</span>
+                    <strong class="text-slate-800">
+                      Только по будням (Пн–Пт) в рабочие часы (09:00 –
+                      18:00)</strong
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- Прямая связь / Рекомендация -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <a
+                  href="https://t.me/Alex_mebell?text=Здравствуйте,%20Алексей!%20Пишу%20с%20сайта%20«Починим%20и%20соберём».%20Нужна%20помощь%20по%20мебели:"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-bold text-sm transition-colors shadow-sm"
+                >
+                  <i class="fa-brands fa-telegram text-base"></i>
+                  <span>Написать @Alex_mebell</span>
+                </a>
+                <a
+                  href="#order-form"
+                  class="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm transition-colors"
+                >
+                  <i class="fa-solid fa-camera text-amber-400"></i>
+                  <span>Оценить по фото</span>
+                </a>
+              </div>
+
+              <button
+                onclick="openShareModal()"
+                class="w-full mt-2.5 py-2.5 px-4 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 font-semibold text-xs flex items-center justify-center gap-2 transition-colors"
+              >
+                <i class="fa-solid fa-qrcode text-amber-600"></i>
+                <span>Сохранить визитку или переслать соседям</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- БЛОК РЕАЛЬНЫХ ФОТОГРАФИЙ: «АЛЕКСЕЙ ЗА РАБОТОЙ» -->
+    <section id="work-photos" class="py-14 bg-white border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4"
+        >
+          <div>
+            <span
+              class="text-amber-600 font-bold text-xs uppercase tracking-wider bg-amber-50 px-3 py-1 rounded-full border border-amber-200"
+              >Живые фотографии без стоков</span
+            >
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">
+              Как Алексей выполняет ремонт мебели
+            </h2>
+          </div>
+          <p class="text-slate-600 text-sm max-w-md">
+            Приезжаю со своим профессиональным инструментом в будние дни в
+            рабочее время. Восстанавливаю вырванные с корнем крепления так, что
+            они держат крепче заводских.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Фото 1: Алексей с инструментом -->
+          <div
+            class="group bg-slate-50 rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all flex flex-col"
+          >
+            <div class="relative h-72 overflow-hidden bg-slate-900">
+              <img
+                src="./image_e8dd39.jpeg"
+                alt="Мастер Алексей на объекте"
+                onerror="
+                  this.onerror = null;
+                  this.src =
+                    'https://placehold.co/600x450/1e293b/f59e0b?text=%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B5%D0%B9+%D1%81+%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%BE%D0%BC';
+                "
+                class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+              />
+              <span
+                class="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full"
+              >
+                Личный выезд мастера
+              </span>
+            </div>
+            <div class="p-5 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="font-extrabold text-slate-900 text-base">
+                  Работа без посредников и диспетчеров
+                </h3>
+                <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                  Вы общаетесь напрямую с Алексеем: присылаете фото поломки и
+                  заранее знаете стоимость ремонта до приезда мастера.
+                </p>
+              </div>
+              <div
+                class="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-xs font-bold text-amber-700"
+              >
+                <span>Стаж более 7 лет</span>
+                <span>Войковский р-н / САО / Москва</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Фото 2: Ремонт вырванных петель -->
+          <div
+            class="group bg-slate-50 rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all flex flex-col"
+          >
+            <div class="relative h-72 overflow-hidden bg-slate-900">
+              <img
+                src="./image_e8dcfd.jpeg"
+                alt="Ремонт вырванных петель кухонного шкафа"
+                onerror="
+                  this.onerror = null;
+                  this.src =
+                    'https://placehold.co/600x450/1e293b/f59e0b?text=%D0%A0%D0%B5%D0%BC%D0%BE%D0%BD%D1%82+%D0%BF%D0%B5%D1%82%D0%B5%D0%BB%D1%8C';
+                "
+                class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+              />
+              <span
+                class="absolute top-3 left-3 bg-amber-500 text-slate-950 text-xs font-extrabold px-3 py-1 rounded-full shadow"
+              >
+                от 5 000 ₽
+              </span>
+            </div>
+            <div class="p-5 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="font-extrabold text-slate-900 text-base">
+                  Ремонт вырванных петель на кухне и в спальне
+                </h3>
+                <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                  Восстановление разбитых посадочных чашек в ДСП и МДФ,
+                  укрепление фасадов, замена петель с доводчиками и идеальная
+                  регулировка зазоров.
+                </p>
+              </div>
+              <div
+                class="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-xs font-bold text-slate-700"
+              >
+                <span>Кухонные шкафы и двери</span>
+                <a href="#order-form" class="text-amber-600 hover:underline"
+                  >Заказать ремонт →</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Фото 3: Ремонт вырванных направляющих -->
+          <div
+            class="group bg-slate-50 rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all flex flex-col"
+          >
+            <div class="relative h-72 overflow-hidden bg-slate-900">
+              <img
+                src="./image_e8dd1a.jpeg"
+                alt="Ремонт вырванных направляющих выдвижного ящика"
+                onerror="
+                  this.onerror = null;
+                  this.src =
+                    'https://placehold.co/600x450/1e293b/f59e0b?text=%D0%A0%D0%B5%D0%BC%D0%BE%D0%BD%D1%82+%D0%BD%D0%B0%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D1%8F%D1%8E%D1%89%D0%B8%D1%85';
+                "
+                class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+              />
+              <span
+                class="absolute top-3 left-3 bg-amber-500 text-slate-950 text-xs font-extrabold px-3 py-1 rounded-full shadow"
+              >
+                от 5 000 ₽
+              </span>
+            </div>
+            <div class="p-5 flex-1 flex flex-col justify-between">
+              <div>
+                <h3 class="font-extrabold text-slate-900 text-base">
+                  Ремонт вырванных направляющих ящиков
+                </h3>
+                <p class="text-xs text-slate-600 mt-1.5 leading-relaxed">
+                  Укрепление стенок корпуса, переустановка и замена вырванных
+                  направляющих, тандембоксов и доводчиков выдвижных ящиков на
+                  кухне и в комодах.
+                </p>
+              </div>
+              <div
+                class="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-xs font-bold text-slate-700"
+              >
+                <span>Ящики с плавным ходом</span>
+                <a href="#order-form" class="text-amber-600 hover:underline"
+                  >Заказать ремонт →</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- БЛОК 2: ИНТЕРАКТИВНЫЙ КАТАЛОГ УСЛУГ + МИНИ-КАЛЬКУЛЯТОР -->
+    <section
+      id="services"
+      class="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+    >
+      <div class="text-center max-w-3xl mx-auto mb-10">
+        <span
+          class="text-amber-600 font-bold text-xs uppercase tracking-wider bg-amber-50 px-3 py-1 rounded-full border border-amber-200"
+          >Прайс-лист без посредников</span
+        >
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-3">
+          Наши услуги и калькулятор стоимости
+        </h2>
+        <p class="text-slate-600 mt-2 text-base">
+          Мы специализируемся на сложном ремонте креплений мебели, устранении
+          скрипа кроватей и сборке/разборке офисной мебели при переездах.
+          Выберите нужные пункты для расчёта:
+        </p>
+      </div>
+
+      <!-- Вкладки (Табы) категорий -->
+      <div
+        id="category-tabs"
+        class="flex overflow-x-auto no-scrollbar gap-2 sm:justify-center pb-3 mb-8 border-b border-slate-200"
+      >
+        <!-- Рендерится из JS -->
+      </div>
+
+      <!-- Основная сетка: Карточки услуг (слева) + Калькулятор расчёта (справа) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Сетка карточек услуг -->
+        <div
+          id="services-grid"
+          class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4"
+        >
+          <!-- Рендерится динамически из массива servicesData в JS -->
+        </div>
+
+        <!-- Панель сметы / калькулятора (Sticky на десктопе) -->
+        <div
+          class="lg:col-span-4 lg:sticky lg:top-28 bg-white rounded-3xl p-6 shadow-xl border border-slate-200"
+        >
+          <div
+            class="flex items-center justify-between pb-4 mb-4 border-b border-slate-100"
+          >
+            <div class="flex items-center gap-2.5">
+              <div
+                class="w-9 h-9 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold"
+              >
+                <i class="fa-solid fa-receipt"></i>
+              </div>
+              <div>
+                <h3 class="font-extrabold text-slate-900 text-base">
+                  Предварительный расчёт
+                </h3>
+                <p class="text-xs text-slate-500">Без скрытых накруток</p>
+              </div>
+            </div>
+            <button
+              onclick="clearCart()"
+              id="clear-cart-btn"
+              class="text-xs text-slate-400 hover:text-red-500 font-medium hidden"
+            >
+              Очистить
+            </button>
+          </div>
+
+          <!-- Выбор района для учёта выезда -->
+          <div class="mb-4">
+            <label
+              class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2"
+            >
+              Ваш район в Москве:
+            </label>
+            <select
+              id="calc-district"
+              onchange="renderCart()"
+              class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            >
+              <option value="priority">
+                Войковский р-н / Сокол / Коптево (Выезд 0 ₽ — рядом!)
+              </option>
+              <option value="sao_szao">
+                Другой район САО или СЗАО (Выезд 0 ₽)
+              </option>
+              <option value="moscow">
+                Другой округ Москвы (Выезд по договорённости)
+              </option>
+            </select>
+          </div>
+
+          <!-- Список выбранных работ -->
+          <div
+            id="cart-items"
+            class="space-y-2.5 max-h-64 overflow-y-auto pr-1 mb-4"
+          >
+            <!-- Заполняется из JS -->
+          </div>
+
+          <!-- Итоговая сумма -->
+          <div class="bg-slate-900 text-white p-4 rounded-2xl mb-4">
+            <div
+              class="flex items-center justify-between text-xs text-slate-400 mb-1"
+            >
+              <span>Ориентировочная стоимость:</span>
+              <span class="text-emerald-400 font-semibold"
+                >Без комиссии сервисов</span
+              >
+            </div>
+            <div class="flex items-baseline justify-between">
+              <span class="text-sm font-medium">Итого за работы:</span>
+              <span
+                id="cart-total"
+                class="text-2xl font-extrabold text-amber-400"
+                >0 ₽</span
+              >
+            </div>
+            <p class="text-[11px] text-slate-400 mt-2 leading-snug">
+              *Точную цену назову по фото вашей мебели еще до выезда. Работаем в
+              будни (09:00–18:00).
+            </p>
+          </div>
+
+          <div class="space-y-2.5">
+            <button
+              onclick="transferCartToForm()"
+              class="w-full wood-gradient hover:opacity-95 text-white font-bold py-3.5 px-5 rounded-xl shadow-md flex items-center justify-center gap-2 text-sm transition-all active:scale-95"
+            >
+              <span>Перенести список в форму заявки</span>
+              <i class="fa-solid fa-arrow-down"></i>
+            </button>
+            <button
+              onclick="sendCartDirectlyToTelegram()"
+              class="w-full bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 px-4 rounded-xl shadow-sm flex items-center justify-center gap-2 text-xs sm:text-sm transition-all active:scale-95"
+            >
+              <i class="fa-brands fa-telegram text-base"></i>
+              <span>Отправить расчёт в @Alex_mebell</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- БЛОК 3: НАГЛЯДНЫЕ КЕЙСЫ «ДО / ПОСЛЕ» (ИНТЕРАКТИВНОЕ СРАВНЕНИЕ) -->
+    <section id="portfolio" class="py-16 bg-slate-900 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div
+          class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4"
+        >
+          <div>
+            <span
+              class="text-amber-400 font-bold text-xs uppercase tracking-wider bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20"
+              >Примеры частых поломок</span
+            >
+            <h2 class="text-2xl sm:text-4xl font-extrabold mt-3">
+              Не спешите покупать новую мебель — мы починим
+            </h2>
+          </div>
+          <p class="text-slate-400 text-sm max-w-md">
+            В 90% случаев вырванные петли кухни, заклинившие двери купе или
+            расшатанную кровать можно надёжно восстановить за 1 визит.
+          </p>
+        </div>
+
+        <!-- Переключатель кейсов + Интерактивный слайдер До/После -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <!-- Кнопки выбора сценария поломки -->
+          <div class="lg:col-span-5 space-y-3" id="cases-buttons">
+            <!-- Рендерится из JS -->
+          </div>
+
+          <!-- Интерактивное окно сравнения До / После -->
+          <div
+            class="lg:col-span-7 bg-slate-800 rounded-3xl p-4 sm:p-6 border border-slate-700 shadow-2xl"
+          >
+            <div
+              class="flex items-center justify-between mb-3 text-xs font-bold uppercase tracking-wider"
+            >
+              <span
+                class="bg-red-500/20 text-red-300 px-3 py-1 rounded-lg border border-red-500/30"
+              >
+                <i class="fa-solid fa-triangle-exclamation mr-1"></i> До ремонта
+                (Проблема)
+              </span>
+              <span class="text-slate-400 hidden sm:inline"
+                >Двигайте ползунок вправо-влево</span
+              >
+              <span
+                class="bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-lg border border-emerald-500/30"
+              >
+                <i class="fa-solid fa-circle-check mr-1"></i> После работы
+                Алексея
+              </span>
+            </div>
+
+            <!-- Контейнер слайдера -->
+            <div
+              id="comparison-box"
+              class="comparison-slider w-full h-64 sm:h-80 rounded-2xl bg-slate-900 relative cursor-ew-resize border border-slate-700"
+            >
+              <!-- Слой ПОСЛЕ (Фоновый, справа) -->
+              <div
+                id="case-after-view"
+                class="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-emerald-950 via-slate-900 to-slate-900"
+              >
+                <!-- Наполняется из JS -->
+              </div>
+
+              <!-- Слой ДО (Верхний, обрезаемый ползунком) -->
+              <div
+                id="case-before-layer"
+                class="comparison-before bg-gradient-to-br from-rose-950 via-slate-900 to-slate-900"
+              >
+                <div
+                  id="case-before-view"
+                  class="w-full h-full flex flex-col items-center justify-center p-6 text-center"
+                >
+                  <!-- Наполняется из JS -->
+                </div>
+              </div>
+
+              <!-- Ползунок -->
+              <div id="comparison-handle" class="comparison-handle">
+                <div
+                  class="w-10 h-10 rounded-full bg-amber-500 text-white shadow-xl flex items-center justify-center absolute top-1/2 -translate-y-1/2 -translate-x-1/2 border-2 border-white"
+                >
+                  <i class="fa-solid fa-arrows-left-right text-xs"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ползунок range для удобного управления пальцем -->
+            <div class="mt-4 flex items-center gap-3">
+              <span class="text-xs text-slate-400 font-medium">Было</span>
+              <input
+                id="slider-range"
+                type="range"
+                min="5"
+                max="95"
+                value="50"
+                oninput="updateComparisonSlider(this.value)"
+                class="w-full accent-amber-500 cursor-pointer h-2 bg-slate-700 rounded-lg"
+              />
+              <span class="text-xs text-amber-400 font-bold">Стало</span>
+            </div>
+
+            <!-- Детали выбранного кейса -->
+            <div
+              id="case-details-footer"
+              class="mt-5 pt-4 border-t border-slate-700/80 flex flex-wrap items-center justify-between gap-4 text-sm"
+            >
+              <!-- Наполняется из JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- БЛОК 4: АРХИТЕКТУРА ПОД МАСШТАБИРОВАНИЕ — «АЛЕКСЕЙ И ПРОВЕРЕННЫЕ МАСТЕРА» -->
+    <section
+      id="masters"
+      class="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+    >
+      <div
+        class="bg-amber-50/70 border border-amber-200/80 rounded-3xl p-6 sm:p-10"
+      >
+        <div
+          class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-8 pb-6 border-b border-amber-200/60"
+        >
+          <div>
+            <div
+              class="inline-flex items-center gap-2 text-amber-800 font-bold text-xs uppercase tracking-wider bg-amber-200/70 px-3 py-1 rounded-full"
+            >
+              <i class="fa-solid fa-users-gear"></i>
+              <span>Честное объединение мебельщиков Москвы</span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-2">
+              Мастера нашей команды
+            </h2>
+            <p class="text-slate-600 text-sm sm:text-base mt-1 max-w-2xl">
+              Я работаю лично, а если заказ крупный (например, сборка большой
+              кухни или офиса) или нужен срочный выезд в другом конце Москвы —
+              подключаю проверенных друзей-напарников с опытом от 5 лет.
+            </p>
+          </div>
+
+          <!-- Фильтр специализации мастеров -->
+          <div class="flex flex-wrap gap-2 shrink-0" id="masters-filter">
+            <button
+              onclick="filterMasters('all')"
+              data-filter="all"
+              class="master-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white transition-all"
+            >
+              Все специалисты
+            </button>
+            <button
+              onclick="filterMasters('Кухни')"
+              data-filter="Кухни"
+              class="master-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:border-amber-400 transition-all"
+            >
+              Кухни
+            </button>
+            <button
+              onclick="filterMasters('Двери')"
+              data-filter="Двери"
+              class="master-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:border-amber-400 transition-all"
+            >
+              Ремонт дверей
+            </button>
+            <button
+              onclick="filterMasters('Шкафы-купе')"
+              data-filter="Шкафы-купе"
+              class="master-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:border-amber-400 transition-all"
+            >
+              Шкафы и спальни
+            </button>
+          </div>
+        </div>
+
+        <!-- Карточки мастеров (Рендерятся из массива mastersData в JS!) -->
+        <div
+          id="masters-grid"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          <!-- Заполняется автоматически из JavaScript -->
+        </div>
+
+        <!-- Плашка для друзей-мастеров (Приглашение в гильдию) -->
+        <div
+          class="mt-8 bg-white rounded-2xl p-5 sm:p-6 border border-dashed border-amber-400 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+        >
+          <div class="flex items-start gap-4">
+            <div
+              class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 text-xl"
+            >
+              <i class="fa-solid fa-handshake-simple"></i>
+            </div>
+            <div>
+              <h3 class="font-extrabold text-slate-900 text-base">
+                Вы частный мастер по ремонту или сборке мебели?
+              </h3>
+              <p class="text-xs sm:text-sm text-slate-600 mt-0.5">
+                Мы развиваем прямую базу мастеров по районам Москвы без
+                грабительских комиссий агрегаторов. Если вы знакомы с Алексеем
+                или хотите работать на совесть — присоединяйтесь!
+              </p>
+            </div>
+          </div>
+          <a
+            href="#order-form"
+            onclick="prefillMasterJoin()"
+            class="shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-colors"
+          >
+            Стать мастером команды
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- БЛОК 5: ГЕОГРАФИЯ ВЫЕЗДА (ВОЙКОВСКИЙ РАЙОН, САО И МОСКВА) -->
+    <section
+      id="districts"
+      class="py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+    >
+      <div
+        class="bg-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-xl relative overflow-hidden"
+      >
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7 space-y-4">
+            <span
+              class="text-emerald-400 font-bold text-xs uppercase tracking-wider flex items-center gap-2"
+            >
+              <span
+                class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"
+              ></span>
+              Карта оперативного выезда
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold">
+              Живём в Войковском районе — к соседям по САО и СЗАО приедем за
+              30–40 минут!
+            </h2>
+            <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+              Работаю <strong class="text-white">по всей Москве</strong> строго
+              в будние дни (Пн–Пт) в рабочие часы. Если вы находитесь в
+              Войковском районе, САО или СЗАО — мне не нужно тратить часы на
+              дорогу, поэтому смогу оперативно приехать в удобное дневное окно.
+            </p>
+            <div class="flex flex-wrap gap-2 pt-2">
+              <span
+                class="px-3 py-1.5 rounded-xl bg-amber-500 text-slate-950 font-extrabold text-xs"
+                >★ м. Войковская / МЦК Балтийская</span
+              >
+              <span
+                class="px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold"
+                >м. Сокол</span
+              >
+              <span
+                class="px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold"
+                >м. Водный стадион</span
+              >
+              <span
+                class="px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold"
+                >Коптево</span
+              >
+              <span
+                class="px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold"
+                >Головинский</span
+              >
+              <span
+                class="px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold"
+                >м. Аэропорт / Динамо</span
+              >
+              <span
+                class="px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold"
+                >Речной вокзал / Ховрино</span
+              >
+              <span
+                class="px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold"
+                >Щукино / Строгино / Тушино</span
+              >
+              <span
+                class="px-3 py-1.5 rounded-xl bg-emerald-950 border border-emerald-700 text-emerald-300 text-xs font-semibold"
+                >+ Любой район Москвы по записи</span
+              >
+            </div>
+          </div>
+          <div
+            class="lg:col-span-5 bg-slate-800/90 border border-slate-700 p-6 rounded-2xl space-y-4"
+          >
+            <div class="flex items-center gap-3">
+              <div
+                class="w-11 h-11 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-xl shrink-0"
+              >
+                <i class="fa-solid fa-percent"></i>
+              </div>
+              <div>
+                <div class="font-bold text-white text-base">
+                  Привилегия для соседей
+                </div>
+                <div class="text-xs text-slate-400">
+                  Жителям Войковского района и САО
+                </div>
+              </div>
+            </div>
+            <ul class="space-y-2.5 text-xs sm:text-sm text-slate-300">
+              <li class="flex items-center gap-2.5">
+                <i class="fa-solid fa-check text-emerald-400"></i>
+                <span>Оперативный выезд в будние дни в рабочее время</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <i class="fa-solid fa-check text-emerald-400"></i>
+                <span
+                  >Надёжный ремонт вырванных петель, направляющих и
+                  кроватей</span
+                >
+              </li>
+              <li class="flex items-center gap-2.5">
+                <i class="fa-solid fa-check text-emerald-400"></i>
+                <span
+                  >Профессиональная разборка и сборка офисов при переезде</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- БЛОК 6: ФОРМА «БЫСТРАЯ ОЦЕНКА ПО ФОТО / ЗАЯВКА МАСТЕРУ» -->
+    <section
+      id="order-form"
+      class="py-16 sm:py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"
+    >
+      <div
+        class="bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden"
+      >
+        <!-- Шапка формы -->
+        <div class="wood-gradient text-white p-6 sm:p-8">
+          <div
+            class="flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+          >
+            <div>
+              <span
+                class="bg-white/20 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider"
+                >Будни (Пн–Пт) с 09:00 до 18:00</span
+              >
+              <h2 class="text-2xl sm:text-3xl font-extrabold mt-2">
+                Оценить стоимость ремонта или сборки
+              </h2>
+              <p class="text-amber-100 text-sm mt-1">
+                Прикрепите фото поломки на сайте или напишите напрямую в
+                Telegram
+                <a
+                  href="https://t.me/Alex_mebell"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="underline font-extrabold text-white"
+                  >@Alex_mebell</a
+                >
+                — Алексей лично назовёт точную цену.
+              </p>
+            </div>
+            <div
+              class="w-14 h-14 rounded-2xl bg-white/15 flex items-center justify-center text-3xl shrink-0 hidden sm:flex"
+            >
+              <i class="fa-solid fa-comments"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Тело формы -->
+        <form
+          id="repairForm"
+          onsubmit="handleFormSubmit(event)"
+          class="p-6 sm:p-8 space-y-6"
+        >
+          <!-- 1. Имя и Телефон -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label
+                class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2"
+                >Как к вам обращаться *</label
+              >
+              <input
+                type="text"
+                id="client-name"
+                required
+                placeholder="Например: Елена"
+                class="w-full px-4 py-3.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500 text-slate-900 font-medium"
+              />
+            </div>
+            <div>
+              <label
+                class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2"
+                >Ваш телефон *</label
+              >
+              <input
+                type="tel"
+                id="client-phone"
+                required
+                placeholder="+7 (999) 000-00-00"
+                class="w-full px-4 py-3.5 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500 text-slate-900 font-medium"
+              />
+            </div>
+          </div>
+
+          <!-- 2. Район или метро (с быстрыми кнопками-чипсами) -->
+          <div>
+            <label
+              class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2"
+              >Район или станция метро</label
+            >
+            <div class="flex flex-wrap gap-1.5 mb-2.5">
+              <button
+                type="button"
+                onclick="setDistrictChip('м. Войковская / Войковский р-н')"
+                class="text-xs bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 font-semibold px-3 py-1.5 rounded-lg transition-colors"
+              >
+                📍 м. Войковская
+              </button>
+              <button
+                type="button"
+                onclick="setDistrictChip('м. Сокол / Аэропорт')"
+                class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium px-3 py-1.5 rounded-lg transition-colors"
+              >
+                м. Сокол
+              </button>
+              <button
+                type="button"
+                onclick="setDistrictChip('м. Водный стадион / Речной вокзал')"
+                class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium px-3 py-1.5 rounded-lg transition-colors"
+              >
+                м. Водный стадион
+              </button>
+              <button
+                type="button"
+                onclick="setDistrictChip('САО (Коптево / Головинский)')"
+                class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium px-3 py-1.5 rounded-lg transition-colors"
+              >
+                САО
+              </button>
+              <button
+                type="button"
+                onclick="setDistrictChip('СЗАО (Щукино / Строгино)')"
+                class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium px-3 py-1.5 rounded-lg transition-colors"
+              >
+                СЗАО
+              </button>
+              <button
+                type="button"
+                onclick="setDistrictChip('Другой район Москвы')"
+                class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium px-3 py-1.5 rounded-lg transition-colors"
+              >
+                Другой район Москвы
+              </button>
+            </div>
+            <input
+              type="text"
+              id="client-district"
+              placeholder="Например: м. Войковская, Старопетровский проезд"
+              class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500 text-slate-900 text-sm"
+            />
+          </div>
+
+          <!-- 3. Описание проблемы (сюда же попадает расчёт из калькулятора) -->
+          <div>
+            <label
+              class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2"
+              >Что сломалось или что нужно собрать?</label
+            >
+            <textarea
+              id="client-problem"
+              rows="3"
+              placeholder="Например: Вырвало нижнюю петлю на кухонной дверце вместе с куском ДСП, и плохо закрывается ящик..."
+              class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-amber-500 text-slate-900 text-sm"
+            ></textarea>
+          </div>
+
+          <!-- 4. Загрузка фото поломки с живым превью -->
+          <div>
+            <label
+              class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2"
+              >Фотография поломки или схемы мебели (по желанию)</label
+            >
+            <div
+              class="border-2 border-dashed border-slate-300 hover:border-amber-500 rounded-2xl p-4 text-center transition-colors bg-slate-50"
+            >
+              <input
+                type="file"
+                id="photo-upload"
+                accept="image/*"
+                onchange="handlePhotoPreview(event)"
+                class="hidden"
+              />
+              <label
+                for="photo-upload"
+                class="cursor-pointer flex flex-col items-center justify-center py-2"
+              >
+                <div
+                  class="w-11 h-11 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center mb-2"
+                >
+                  <i class="fa-solid fa-camera text-lg"></i>
+                </div>
+                <span class="text-sm font-bold text-slate-800"
+                  >Нажмите, чтобы прикрепить фото</span
+                >
+                <span class="text-xs text-slate-500 mt-0.5"
+                  >По фото я сразу пойму, какую петлю, ролик или замок взять с
+                  собой</span
+                >
+              </label>
+
+              <!-- Контейнер превью фото -->
+              <div
+                id="photo-preview-container"
+                class="hidden mt-3 pt-3 border-t border-slate-200 flex items-center justify-between bg-white p-2.5 rounded-xl"
+              >
+                <div class="flex items-center gap-3">
+                  <img
+                    id="photo-preview-img"
+                    src=""
+                    alt="Превью"
+                    class="w-14 h-14 object-cover rounded-lg border border-slate-200"
+                  />
+                  <div class="text-left">
+                    <div
+                      id="photo-preview-name"
+                      class="text-xs font-bold text-slate-800 truncate max-w-[180px]"
+                    >
+                      photo.jpg
+                    </div>
+                    <div class="text-[11px] text-emerald-600 font-semibold">
+                      ✓ Фото прикреплено к заявке
+                    </div>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onclick="removePhotoPreview()"
+                  class="text-xs text-red-500 hover:text-red-700 font-bold px-2.5 py-1"
+                >
+                  Удалить
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Куда удобнее получить ответ -->
+          <div>
+            <label
+              class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2"
+              >Как вам удобнее получить расчёт?</label
+            >
+            <div class="grid grid-cols-3 gap-2.5">
+              <label class="cursor-pointer">
+                <input
+                  type="radio"
+                  name="messenger"
+                  value="Telegram"
+                  checked
+                  class="peer hidden"
+                />
+                <div
+                  class="py-3 px-3 rounded-xl border border-slate-200 peer-checked:border-sky-500 peer-checked:bg-sky-50 peer-checked:text-sky-700 text-center font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-1.5"
+                >
+                  <i class="fa-brands fa-telegram text-base"></i>
+                  <span>Telegram</span>
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input
+                  type="radio"
+                  name="messenger"
+                  value="WhatsApp"
+                  class="peer hidden"
+                />
+                <div
+                  class="py-3 px-3 rounded-xl border border-slate-200 peer-checked:border-emerald-500 peer-checked:bg-emerald-50 peer-checked:text-emerald-700 text-center font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-1.5"
+                >
+                  <i class="fa-brands fa-whatsapp text-base"></i>
+                  <span>WhatsApp</span>
+                </div>
+              </label>
+              <label class="cursor-pointer">
+                <input
+                  type="radio"
+                  name="messenger"
+                  value="Позвонить"
+                  class="peer hidden"
+                />
+                <div
+                  class="py-3 px-3 rounded-xl border border-slate-200 peer-checked:border-amber-500 peer-checked:bg-amber-50 peer-checked:text-amber-800 text-center font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-1.5"
+                >
+                  <i class="fa-solid fa-phone text-sm"></i>
+                  <span>Звонок</span>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Кнопки отправки: через серверный /api/order или напрямую в личку @Alex_mebell -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+            <button
+              type="submit"
+              id="submit-order-btn"
+              class="w-full wood-gradient hover:opacity-95 text-white font-extrabold text-sm sm:text-base py-4 px-5 rounded-2xl shadow-lg shadow-amber-600/25 flex items-center justify-center gap-2 transition-all active:scale-98"
+            >
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>Отправить заявку и фото с сайта</span>
+            </button>
+
+            <button
+              type="button"
+              onclick="openDirectTelegramWithForm()"
+              class="w-full bg-sky-500 hover:bg-sky-600 text-white font-extrabold text-sm sm:text-base py-4 px-5 rounded-2xl shadow-lg shadow-sky-500/20 flex items-center justify-center gap-2 transition-all active:scale-98"
+            >
+              <i class="fa-brands fa-telegram text-lg"></i>
+              <span>Открыть чат @Alex_mebell с текстом</span>
+            </button>
+          </div>
+          <p class="text-[11px] text-center text-slate-400">
+            Заявки обрабатываются в рабочие часы: Пн–Пт с 09:00 до 18:00. Прямой
+            контакт в Telegram:
+            <a
+              href="https://t.me/Alex_mebell"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-sky-600 font-bold hover:underline"
+              >@Alex_mebell</a
+            >
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ПОДВАЛ САЙТА (FOOTER) -->
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="w-10 h-10 rounded-xl wood-gradient flex items-center justify-center text-white"
+          >
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+          </div>
+          <div>
+            <div class="font-bold text-white text-base">
+              «Починим и соберём» — Алексей и команда мастеров
+            </div>
+            <div class="text-xs text-slate-500">
+              Ремонт петель, направляющих, кроватей, дверей и сборка офисной
+              мебели в Москве • Будни (Пн–Пт) 09:00–18:00
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <a
+            href="https://t.me/Alex_mebell"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-4 py-2 rounded-xl bg-sky-500/15 hover:bg-sky-500/25 text-sky-400 border border-sky-500/30 text-xs font-bold flex items-center gap-2 transition-colors"
+          >
+            <i class="fa-brands fa-telegram text-sm"></i>
+            <span>Telegram: @Alex_mebell</span>
+          </a>
+          <button
+            onclick="openShareModal()"
+            class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-2 transition-colors"
+          >
+            <i class="fa-solid fa-share-nodes text-amber-400"></i>
+            <span>Порекомендовать друзьям</span>
+          </button>
+        </div>
+      </div>
+    </footer>
+
+    <!-- МОДАЛЬНОЕ ОКНО 1: «ПОДЕЛИТЬСЯ САЙТОМ / ВИЗИТКА И QR-КОД ДЛЯ СОСЕДЕЙ» -->
+    <div
+      id="share-modal"
+      class="fixed inset-0 z-50 hidden bg-slate-900/75 backdrop-blur-sm flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-7 shadow-2xl border border-slate-100 relative animate-fadeIn"
+      >
+        <button
+          onclick="closeShareModal()"
+          class="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div class="text-center">
+          <div
+            class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center mx-auto mb-3 text-xl"
+          >
+            <i class="fa-solid fa-heart"></i>
+          </div>
+          <h3 class="text-xl font-extrabold text-slate-900">
+            Поделиться контактом мастера
+          </h3>
+          <p class="text-xs sm:text-sm text-slate-600 mt-1">
+            Отправьте ссылку соседям по дому, друзьям или сохраните себе, чтобы
+            надёжный мебельщик всегда был под рукой.
+          </p>
+
+          <!-- Визуальный QR-код визитки (SVG) -->
+          <div
+            class="my-5 p-4 bg-slate-50 rounded-2xl border border-slate-200 inline-block"
+          >
+            <svg
+              class="w-36 h-36 mx-auto text-slate-900"
+              viewBox="0 0 100 100"
+              fill="currentColor"
+            >
+              <path
+                d="M10,10 h25 v25 h-25 z M15,15 v15 h15 v-15 z M20,20 h5 v5 h-5 z"
+              />
+              <path
+                d="M65,10 h25 v25 h-25 z M70,15 v15 h15 v-15 z M75,20 h5 v5 h-5 z"
+              />
+              <path
+                d="M10,65 h25 v25 h-25 z M15,70 v15 h15 v-15 z M20,75 h5 v5 h-5 z"
+              />
+              <rect x="42" y="10" width="6" height="6" />
+              <rect x="52" y="10" width="6" height="12" />
+              <rect x="42" y="22" width="6" height="12" />
+              <rect x="10" y="42" width="12" height="6" />
+              <rect x="28" y="42" width="18" height="6" />
+              <rect x="52" y="38" width="6" height="16" />
+              <rect x="65" y="42" width="12" height="6" />
+              <rect x="84" y="42" width="6" height="12" />
+              <rect x="16" y="52" width="10" height="6" />
+              <rect x="42" y="54" width="12" height="12" />
+              <rect x="42" y="72" width="6" height="18" />
+              <rect x="54" y="70" width="12" height="6" />
+              <rect x="72" y="68" width="18" height="10" />
+              <rect x="56" y="82" width="14" height="8" />
+              <rect x="78" y="84" width="12" height="6" />
+            </svg>
+            <div class="text-[11px] font-bold text-slate-700 mt-2">
+              «Починим и соберём» — Мастер Алексей (САО / Москва)
+            </div>
+            <div class="text-[11px] font-extrabold text-sky-600">
+              Telegram: @Alex_mebell
+            </div>
+          </div>
+
+          <!-- Кнопки быстрого шеринга -->
+          <div class="space-y-2.5 text-left">
+            <button
+              onclick="triggerNativeShare()"
+              class="w-full wood-gradient text-white font-bold py-3.5 px-4 rounded-xl flex items-center justify-center gap-2 text-sm shadow-md"
+            >
+              <i class="fa-solid fa-share-from-square"></i>
+              <span>Отправить через телефон (Telegram / WhatsApp)</span>
+            </button>
+            <a
+              href="https://t.me/Alex_mebell"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="w-full bg-sky-500 hover:bg-sky-600 text-white font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-sm transition-colors"
+            >
+              <i class="fa-brands fa-telegram text-base"></i>
+              <span>Написать Алексею (@Alex_mebell)</span>
+            </a>
+            <button
+              onclick="copySiteLink()"
+              class="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-sm transition-colors"
+            >
+              <i class="fa-regular fa-copy text-amber-600"></i>
+              <span>Скопировать ссылку и визитку</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО 2: «ЗАЯВКА СФОРМИРОВАНА» -->
+    <div
+      id="success-modal"
+      class="fixed inset-0 z-50 hidden bg-slate-900/75 backdrop-blur-sm flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-100 relative"
+      >
+        <button
+          onclick="closeSuccessModal()"
+          class="absolute top-5 right-5 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <div
+          class="w-14 h-14 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mb-4"
+        >
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <h3
+          id="success-modal-title"
+          class="text-2xl font-extrabold text-slate-900"
+        >
+          Заявка готова!
+        </h3>
+        <p id="success-modal-desc" class="text-sm text-slate-600 mt-1">
+          Мы сформировали вашу карточку заказа. Вы можете в один клик отправить
+          её Алексею в личный Telegram <strong>@Alex_mebell</strong> или
+          скопировать текст:
+        </p>
+
+        <!-- Сформированный текст заявки -->
+        <div
+          id="generated-order-text"
+          class="my-4 p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-800 font-mono whitespace-pre-line"
+        ></div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <a
+            id="modal-tg-direct-link"
+            href="https://t.me/Alex_mebell"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="py-3 px-4 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-bold text-sm flex items-center justify-center gap-2 text-center"
+          >
+            <i class="fa-brands fa-telegram text-base"></i>
+            <span>Отправить в @Alex_mebell</span>
+          </a>
+          <button
+            onclick="copyOrderText()"
+            class="py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm flex items-center justify-center gap-2"
+          >
+            <i class="fa-regular fa-copy"></i>
+            <span>Скопировать текст</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- =======================================================================
+         JAVASCRIPT: ДАННЫЕ И ЛОГИКА (ЛЕГКО РЕДАКТИРОВАТЬ И МАСШТАБИРОВАТЬ)
+         ======================================================================= -->
+    <script>
+      /* ---------------------------------------------------------------------
+       * 1. БАЗА УСЛУГ И ЦЕН (Строго по направлениям Алексея)
+       * --------------------------------------------------------------------- */
+      const servicesData = [
+        // Категория 1: Ремонт петель и направляющих (Кухни и корпусная мебель)
+        {
+          id: "p1",
+          category: "Петли и направляющие",
+          icon: "fa-door-open",
+          title: "Ремонт вырванных петель фасада («с мясом»)",
+          desc: "Надёжное восстановление разбитых посадочных мест в ДСП/МДФ на кухне или в шкафу, установка ремонтных пластин, замена петель и выравнивание дверцы.",
+          price: 5000,
+          unit: "от 5 000 ₽",
+        },
+        {
+          id: "p2",
+          category: "Петли и направляющих",
+          icon: "fa-box-archive",
+          title: "Ремонт вырванных направляющих ящиков",
+          desc: "Восстановление креплений выдвижных ящиков на кухне, в комодах и спальнях. Замена сломанных шариковых направляющих и систем плавного закрывания.",
+          price: 5000,
+          unit: "от 5 000 ₽",
+        },
+        {
+          id: "p3",
+          category: "Петли и направляющие",
+          icon: "fa-sliders",
+          title: "Замена газлифтов, подъёмных механизмов и роликов",
+          desc: "Замена вышедших из строя подъёмников верхних кухонных шкафов и роликовых систем раздвижных дверей.",
+          price: 5000,
+          unit: "от 5 000 ₽",
+        },
+        // Категория 2: Ремонт кроватей и спален
+        {
+          id: "b1",
+          category: "Ремонт кроватей",
+          icon: "fa-bed",
+          title: "Устранение скрипа кровати (комплексный ремонт)",
+          desc: "Полная диагностика и протяжка каркаса, усиление угловых соединений, ремонт ортопедического основания, замена ламелей и устранение любых люфтов.",
+          price: 7000,
+          unit: "от 7 000 ₽",
+        },
+        {
+          id: "b2",
+          category: "Ремонт кроватей",
+          icon: "fa-up-down",
+          title: "Ремонт вырванного подъёмного механизма кровати",
+          desc: "Восстановление вырванных креплений подъёмной рамы из царги кровати и замена газовых амортизаторов.",
+          price: 5000,
+          unit: "от 5 000 ₽",
+        },
+        // Категория 3: Офисная мебель (сборка/разборка при переезде)
+        {
+          id: "o1",
+          category: "Офисная мебель (переезд)",
+          icon: "fa-building",
+          title: "Сборка или разборка офисной мебели при переезде",
+          desc: "Рабочие столы, тумбы, стеллажи, шкафы для документов, переговорные зоны. Аккуратная разборка с маркировкой фурнитуры и сборка на новом месте (опыт 7+ лет).",
+          price: 600,
+          unit: "от 600 ₽ / ед.",
+        },
+        {
+          id: "o2",
+          category: "Офисная мебель (переезд)",
+          icon: "fa-briefcase",
+          title: "Сборка / разборка кабинета руководителя и бенч-систем",
+          desc: "Работа с крупногабаритными офисными станциями, ресепшенами и переговорными столами в рабочие часы по будням (09:00 – 18:00).",
+          price: 1500,
+          unit: "от 1 500 ₽ / место",
+        },
+        // Категория 4: Ремонт дверей
+        {
+          id: "d1",
+          category: "Ремонт дверей",
+          icon: "fa-door-closed",
+          title: "Ремонт вырванных петель и перекосов дверей",
+          desc: "Восстановление посадочных мест дверных петель, укрепление коробки и полотна, устранение провисания и заедания дверей.",
+          price: 5000,
+          unit: "от 5 000 ₽",
+        },
+        {
+          id: "d2",
+          category: "Ремонт дверей",
+          icon: "fa-key",
+          title: "Замена и ремонт дверных замков и ручек",
+          desc: "Замена сломанных защёлок, ручек и механизмов в межкомнатных и офисных дверях.",
+          price: 5000,
+          unit: "от 5 000 ₽",
+        },
+      ];
+
+      /* ---------------------------------------------------------------------
+       * 2. БАЗА МАСТЕРОВ (Масштабируемая структура для друзей Алексея!)
+       * Сейчас в массиве активна карточка Алексея, а ниже — готовый шаблон,
+       * чтобы в будущем раскомментировать и добавить друзей-мастеров за 1 минуту.
+       * --------------------------------------------------------------------- */
+      const mastersData = [
+        {
+          id: 1,
+          name: "Алексей",
+          age: "45 лет",
+          role: "Ведущий мастер • Основатель «Починим и соберём»",
+          experience: "Более 7 лет (сборка офисной мебели и ремонт мебели)",
+          districts: "Войковский р-н, САО, СЗАО + вся Москва",
+          tags: ["Петли и ящики", "Кровати", "Офисный переезд", "Двери"],
+          bio: "Специализируюсь на ремонте вырванных петель и направляющих (от 5 000 ₽), устранении скрипа кроватей (от 7 000 ₽) и сборке/разборке офисной мебели при переезде (от 600 ₽). Работаю строго в будни (Пн–Пт) с 09:00 до 18:00.",
+          status: "Будни (Пн–Пт) 09:00–18:00",
+          photo: "image_e8dd39.jpg",
+          tgUsername: "Alex_mebell",
+          tgLink: "https://t.me/Alex_mebell",
+          isFounder: true,
+        },
+        {
+          id: 2,
+          name: "Команда Алексея (Офисные переезды)",
+          age: "Напарники со стажем 7+ лет",
+          role: "Бригада для крупных офисных переездов",
+          experience: "Опыт более 7 лет",
+          districts: "САО, СЗАО, Центр и вся Москва",
+          tags: ["Офисный переезд", "Петли и ящики"],
+          bio: "Когда нужно за один рабочий день разобрать, перевезти и собрать десятки рабочих столов, шкафов и переговорных зон, выезжаем слаженной командой вместе с Алексеем.",
+          status: "Будни (Пн–Пт) 09:00–18:00",
+          photo: "",
+          tgUsername: "Alex_mebell",
+          tgLink: "https://t.me/Alex_mebell",
+          isFounder: false,
+        },
+        /* 
+             * ШАБЛОН ДЛЯ ДОБАВЛЕНИЯ ДРУЗЕЙ АЛЕКСЕЯ В БУДУЩЕМ:
+             * Просто скопируйте и раскомментируйте блок ниже:
+             *
+            ,{
+                id: 3,
+                name: 'Имя друга-мастера',
+                age: '44 года',
+                role: 'Мастер по ремонту мебели и дверей',
+                experience: 'Опыт более 7 лет',
+                districts: 'СВАО, ВАО, Центр',
+                tags: ['Кровати', 'Двери', 'Петли и ящики'],
+                bio: 'Описание специализации мастера, какие работы выполняет.',
+                status: 'Будни (Пн–Пт) 09:00–18:00',
+                photo: 'photo_friend.jpg',
+                tgUsername: 'Alex_mebell',
+                tgLink: 'https://t.me/Alex_mebell',
+                isFounder: false
+            }
+            */
+      ];
+
+      /* ---------------------------------------------------------------------
+       * 3. ДАННЫЕ ДЛЯ ИНТЕРАКТИВНОГО БЛОКА «ДО / ПОСЛЕ»
+       * --------------------------------------------------------------------- */
+      const casesData = [
+        {
+          id: 0,
+          title: "Ремонт вырванных петель на кухне или в шкафу",
+          subtitle: "Фасад провис, а саморезы вырвало вместе с куском ДСП",
+          beforeTitle: "Вырванная чашка или площадка петли",
+          beforeDesc:
+            "Рыхлое ДСП раскрошилось от нагрузки, дверца держится на одной петле и рискует упасть.",
+          afterTitle: "Восстановление узла и надёжный крепёж",
+          afterDesc:
+            "Укрепление посадочного места, установка ремонтных пластин и новых петель с доводчиком, точная регулировка зазоров.",
+          time: "Работа в будни (Пн–Пт)",
+          price: "от 5 000 ₽",
+        },
+        {
+          id: 1,
+          title: "Ремонт вырванных направляющих ящика",
+          subtitle:
+            "Выдвижной ящик перекосило, ролики или рельсы вырваны из стенки",
+          beforeTitle: "Заклинивший или упавший ящик",
+          beforeDesc:
+            "Крепёж направляющих разбил отверстия в корпусе тумбы или кухонного модуля, ящик не задвигается.",
+          afterTitle: "Плавный ход и усиленное крепление",
+          afterDesc:
+            "Восстановление боковин корпуса, установка новых усиленных направляющих, выравнивание фасада ящика.",
+          time: "Работа в будни (Пн–Пт)",
+          price: "от 5 000 ₽",
+        },
+        {
+          id: 2,
+          title: "Полное устранение скрипа кровати",
+          subtitle: "Кровать скрипит и шатается при малейшем движении",
+          beforeTitle: "Расшатанный каркас и трущиеся узлы",
+          beforeDesc:
+            "Ослабли стяжки, просели уголки, металлическая или деревянная рама трётся о царги кровати.",
+          afterTitle: "Абсолютная тишина и жёсткий каркас",
+          afterDesc:
+            "Усиление всех нагруженных узлов, проклейка демпферов, ремонт основания и замена изношенного крепежа.",
+          time: "Работа в будни (Пн–Пт)",
+          price: "от 7 000 ₽",
+        },
+      ];
+
+      /* ---------------------------------------------------------------------
+       * СОСТОЯНИЕ ПРИЛОЖЕНИЯ (STATE)
+       * --------------------------------------------------------------------- */
+      let activeCategory = "Петли и направляющие";
+      let cart = []; // Массив выбранных услуг для расчёта
+      let activeCaseIndex = 0;
+
+      /* ---------------------------------------------------------------------
+       * ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ
+       * --------------------------------------------------------------------- */
+      window.addEventListener("DOMContentLoaded", () => {
+        renderCategoryTabs();
+        renderServicesGrid();
+        renderCart();
+        renderCases();
+        renderMastersFilterButtons();
+        renderMasters("all");
+        initComparisonDrag();
+      });
+
+      /* ---------------------------------------------------------------------
+       * ЛОГИКА КАТАЛОГА УСЛУГ И КАЛЬКУЛЯТОРА
+       * --------------------------------------------------------------------- */
+      function renderCategoryTabs() {
+        const categories = [
+          "Петли и направляющие",
+          "Ремонт кроватей",
+          "Офисная мебель (переезд)",
+          "Ремонт дверей",
+        ];
+        const container = document.getElementById("category-tabs");
+        container.innerHTML = categories
+          .map((cat) => {
+            const isActive = cat === activeCategory;
+            return `
+                    <button onclick="switchCategory('${cat}')"
+                        class="px-5 py-3 rounded-2xl font-bold text-sm whitespace-nowrap transition-all ${
+                          isActive
+                            ? "wood-gradient text-white shadow-md shadow-amber-600/20"
+                            : "bg-white text-slate-600 hover:bg-slate-100 border border-slate-200"
+                        }">
+                        ${cat}
+                    </button>
+                `;
+          })
+          .join("");
+      }
+
+      function switchCategory(category) {
+        activeCategory = category;
+        renderCategoryTabs();
+        renderServicesGrid();
+      }
+
+      function renderServicesGrid() {
+        const container = document.getElementById("services-grid");
+        const filtered = servicesData.filter(
+          (item) => item.category === activeCategory,
+        );
+
+        container.innerHTML = filtered
+          .map((service) => {
+            const inCart = cart.some((c) => c.id === service.id);
+            return `
+                    <div class="bg-white rounded-2xl p-5 border ${inCart ? "border-amber-500 ring-2 ring-amber-500/20" : "border-slate-200"} shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-start justify-between gap-3 mb-3">
+                                <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                                    <i class="fa-solid ${service.icon}"></i>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-lg font-extrabold text-slate-900">от ${service.price.toLocaleString("ru-RU")} ₽</span>
+                                    <span class="block text-[11px] text-slate-400">${service.unit}</span>
+                                </div>
+                            </div>
+                            <h4 class="font-bold text-slate-900 text-base leading-snug mb-1.5">${service.title}</h4>
+                            <p class="text-xs text-slate-500 leading-relaxed mb-4">${service.desc}</p>
+                        </div>
+
+                        <button onclick="toggleServiceInCart('${service.id}')"
+                            class="w-full py-2.5 px-4 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition-all ${
+                              inCart
+                                ? "bg-emerald-600 text-white"
+                                : "bg-slate-100 hover:bg-amber-500 hover:text-white text-slate-800"
+                            }">
+                            <i class="fa-solid ${inCart ? "fa-check" : "fa-plus"}"></i>
+                            <span>${inCart ? "Добавлено в расчёт" : "Добавить в расчёт"}</span>
+                        </button>
+                    </div>
+                `;
+          })
+          .join("");
+      }
+
+      function toggleServiceInCart(serviceId) {
+        const index = cart.findIndex((item) => item.id === serviceId);
+        if (index > -1) {
+          cart.splice(index, 1);
+        } else {
+          const service = servicesData.find((s) => s.id === serviceId);
+          if (service) cart.push(service);
+        }
+        renderServicesGrid();
+        renderCart();
+      }
+
+      function clearCart() {
+        cart = [];
+        renderServicesGrid();
+        renderCart();
+      }
+
+      function renderCart() {
+        const listEl = document.getElementById("cart-items");
+        const totalEl = document.getElementById("cart-total");
+        const clearBtn = document.getElementById("clear-cart-btn");
+
+        if (cart.length === 0) {
+          clearBtn.classList.add("hidden");
+          listEl.innerHTML = `
+                    <div class="text-center py-6 px-3 bg-slate-50 rounded-2xl border border-dashed border-slate-200 text-slate-400 text-xs">
+                        <i class="fa-solid fa-hand-pointer text-lg mb-1.5 block text-slate-300"></i>
+                        Нажмите «Добавить в расчёт» на нужных карточках слева, чтобы собрать смету
+                    </div>
+                `;
+          totalEl.textContent = "0 ₽";
+          return;
+        }
+
+        clearBtn.classList.remove("hidden");
+        let sum = 0;
+
+        listEl.innerHTML = cart
+          .map((item) => {
+            sum += item.price;
+            return `
+                    <div class="flex items-center justify-between gap-2 bg-slate-50 px-3 py-2.5 rounded-xl border border-slate-200/80 text-xs">
+                        <span class="font-semibold text-slate-800 line-clamp-1">${item.title}</span>
+                        <div class="flex items-center gap-2 shrink-0">
+                            <span class="font-bold text-amber-700">${item.price.toLocaleString("ru-RU")} ₽</span>
+                            <button onclick="toggleServiceInCart('${item.id}')" class="text-slate-400 hover:text-red-500">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+          })
+          .join("");
+
+        totalEl.textContent = `от ${sum.toLocaleString("ru-RU")} ₽`;
+      }
+
+      function transferCartToForm() {
+        const problemField = document.getElementById("client-problem");
+        const districtSelect = document.getElementById("calc-district");
+        const clientDistrict = document.getElementById("client-district");
+
+        if (cart.length > 0) {
+          const total = cart.reduce((acc, item) => acc + item.price, 0);
+          const itemsNames = cart
+            .map(
+              (i) => `• ${i.title} (от ${i.price.toLocaleString("ru-RU")} ₽)`,
+            )
+            .join("\n");
+          problemField.value = `Выбранные услуги в калькуляторе (предварительно от ${total.toLocaleString("ru-RU")} ₽):\n${itemsNames}\n\nОписание ситуации: `;
+        }
+
+        if (districtSelect.value === "priority" && !clientDistrict.value) {
+          clientDistrict.value = "Войковский район / САО";
+        }
+
+        document
+          .getElementById("order-form")
+          .scrollIntoView({ behavior: "smooth" });
+        showToast("Список работ перенесён в форму заявки!");
+      }
+
+      /* Мгновенная отправка выбранных в калькуляторе услуг в личку @Alex_mebell */
+      function sendCartDirectlyToTelegram() {
+        const districtSelect = document.getElementById("calc-district");
+        const districtText =
+          districtSelect.options[districtSelect.selectedIndex].text;
+
+        let message = `Здравствуйте, Алексей! Пишу с сайта «Починим и соберём».\n`;
+        message += `📍 Район: ${districtText}\n`;
+
+        if (cart.length > 0) {
+          const total = cart.reduce((acc, item) => acc + item.price, 0);
+          const itemsList = cart
+            .map(
+              (i) => `- ${i.title} (от ${i.price.toLocaleString("ru-RU")} ₽)`,
+            )
+            .join("\n");
+          message += `\n🔧 Выбранные услуги:\n${itemsList}\n💰 Предварительная сумма: от ${total.toLocaleString("ru-RU")} ₽\n`;
+        } else {
+          message += `\nХочу оценить стоимость ремонта/сборки по фото:\n`;
+        }
+
+        const tgUrl = `https://t.me/Alex_mebell?text=${encodeURIComponent(message)}`;
+        window.open(tgUrl, "_blank");
+      }
+
+      /* ---------------------------------------------------------------------
+       * ЛОГИКА ИНТЕРАКТИВНОГО СЛАЙДЕРА «ДО / ПОСЛЕ»
+       * --------------------------------------------------------------------- */
+      function renderCases() {
+        const buttonsContainer = document.getElementById("cases-buttons");
+        buttonsContainer.innerHTML = casesData
+          .map((c, idx) => {
+            const isActive = idx === activeCaseIndex;
+            return `
+                    <button onclick="selectCase(${idx})" class="w-full text-left p-4 sm:p-5 rounded-2xl border transition-all ${
+                      isActive
+                        ? "bg-amber-500/15 border-amber-500 text-white shadow-lg"
+                        : "bg-slate-800/60 border-slate-700/80 text-slate-300 hover:bg-slate-800"
+                    }">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-xs font-bold uppercase tracking-wider ${isActive ? "text-amber-400" : "text-slate-400"}">Кейс #${idx + 1}</span>
+                            <span class="text-xs font-extrabold bg-slate-900 px-2.5 py-1 rounded-lg text-amber-400">${c.price}</span>
+                        </div>
+                        <div class="font-bold text-base text-white">${c.title}</div>
+                        <div class="text-xs text-slate-400 mt-1">${c.subtitle}</div>
+                    </button>
+                `;
+          })
+          .join("");
+
+        const current = casesData[activeCaseIndex];
+
+        document.getElementById("case-before-view").innerHTML = `
+                <div class="w-16 h-16 rounded-2xl bg-red-500/20 text-red-400 flex items-center justify-center text-3xl mb-3 border border-red-500/30">
+                    <i class="fa-solid fa-link-slash"></i>
+                </div>
+                <div class="bg-red-500 text-white text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded mb-2">До ремонта</div>
+                <h4 class="text-lg sm:text-xl font-extrabold text-white max-w-md">${current.beforeTitle}</h4>
+                <p class="text-xs sm:text-sm text-rose-200/80 max-w-md mt-2">${current.beforeDesc}</p>
+            `;
+
+        document.getElementById("case-after-view").innerHTML = `
+                <div class="w-16 h-16 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-3xl mb-3 border border-emerald-500/30">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div class="bg-emerald-500 text-slate-950 text-[11px] font-extrabold uppercase px-2.5 py-0.5 rounded mb-2">После ремонта</div>
+                <h4 class="text-lg sm:text-xl font-extrabold text-white max-w-md">${current.afterTitle}</h4>
+                <p class="text-xs sm:text-sm text-emerald-200/80 max-w-md mt-2">${current.afterDesc}</p>
+            `;
+
+        document.getElementById("case-details-footer").innerHTML = `
+                <div class="flex items-center gap-4">
+                    <span><i class="fa-regular fa-clock text-amber-400 mr-1.5"></i> ${current.time}</span>
+                    <span><i class="fa-solid fa-tag text-amber-400 mr-1.5"></i> Стоимость: <strong class="text-white">${current.price}</strong></span>
+                </div>
+                <a href="#order-form" class="text-amber-400 hover:text-amber-300 font-bold text-xs uppercase tracking-wider flex items-center gap-1.5">
+                    <span>У меня похожая поломка</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            `;
+      }
+
+      function selectCase(index) {
+        activeCaseIndex = index;
+        renderCases();
+        updateComparisonSlider(50);
+        document.getElementById("slider-range").value = 50;
+      }
+
+      function updateComparisonSlider(value) {
+        const beforeLayer = document.getElementById("case-before-layer");
+        const handle = document.getElementById("comparison-handle");
+        beforeLayer.style.width = `${value}%`;
+        handle.style.left = `${value}%`;
+      }
+
+      function initComparisonDrag() {
+        const box = document.getElementById("comparison-box");
+        const range = document.getElementById("slider-range");
+        let isDragging = false;
+
+        const move = (clientX) => {
+          const rect = box.getBoundingClientRect();
+          let percent = ((clientX - rect.left) / rect.width) * 100;
+          percent = Math.max(5, Math.min(95, percent));
+          updateComparisonSlider(percent);
+          range.value = percent;
+        };
+
+        box.addEventListener("mousedown", () => (isDragging = true));
+        window.addEventListener("mouseup", () => (isDragging = false));
+        box.addEventListener("mousemove", (e) => {
+          if (isDragging) move(e.clientX);
+        });
+        box.addEventListener(
+          "touchmove",
+          (e) => {
+            if (e.touches[0]) move(e.touches[0].clientX);
+          },
+          { passive: true },
+        );
+      }
+
+      /* ---------------------------------------------------------------------
+       * ЛОГИКА БЛОКА «МАСТЕРА» (КАТАЛОГ ДЛЯ МАСШТАБИРОВАНИЯ С ДРУЗЬЯМИ)
+       * --------------------------------------------------------------------- */
+      function renderMastersFilterButtons() {
+        const container = document.getElementById("masters-filter");
+        if (!container) return;
+        const tags = [
+          { key: "all", label: "Все специалисты" },
+          { key: "Петли и ящики", label: "Петли и направляющие" },
+          { key: "Кровати", label: "Скрип кроватей" },
+          { key: "Офисный переезд", label: "Офисные переезды" },
+          { key: "Двери", label: "Ремонт дверей" },
+        ];
+        container.innerHTML = tags
+          .map(
+            (t, i) => `
+                <button onclick="filterMasters('${t.key}')" data-filter="${t.key}" class="master-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold ${i === 0 ? "bg-slate-900 text-white" : "bg-white text-slate-700 border border-slate-200 hover:border-amber-400"} transition-all">
+                    ${t.label}
+                </button>
+            `,
+          )
+          .join("");
+      }
+
+      function renderMasters(filterTag) {
+        const grid = document.getElementById("masters-grid");
+        const filtered =
+          filterTag === "all"
+            ? mastersData
+            : mastersData.filter((m) => m.tags.includes(filterTag));
+
+        grid.innerHTML = filtered
+          .map(
+            (master) => `
+                <div class="bg-white rounded-2xl p-6 border ${master.isFounder ? "border-amber-500 ring-2 ring-amber-500/20" : "border-slate-200"} shadow-md flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-4">
+                            <span class="px-2.5 py-1 rounded-full text-[11px] font-bold ${master.isFounder ? "bg-emerald-100 text-emerald-800" : "bg-slate-100 text-slate-600"}">
+                                ● ${master.status}
+                            </span>
+                            ${master.isFounder ? '<span class="text-xs font-extrabold text-amber-600">★ Главный мастер</span>' : ""}
+                        </div>
+
+                        <div class="flex items-center gap-3.5 mb-4">
+                            ${
+                              master.photo
+                                ? `
+                                <img src="${master.photo}" alt="${master.name}" onerror="this.style.display='none'" class="w-14 h-14 rounded-2xl object-cover object-top border border-amber-300 shrink-0">
+                            `
+                                : `
+                                <div class="w-14 h-14 rounded-2xl bg-slate-100 text-slate-700 flex items-center justify-center text-xl font-extrabold shrink-0">
+                                    ${master.name.charAt(0)}
+                                </div>
+                            `
+                            }
+                            <div>
+                                <h3 class="font-extrabold text-slate-900 text-lg leading-tight">${master.name}, <span class="text-sm font-medium text-slate-500">${master.age}</span></h3>
+                                <p class="text-xs font-bold text-amber-700 mt-0.5">${master.role}</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 text-xs text-slate-600 mb-4 bg-slate-50 p-3.5 rounded-xl border border-slate-100">
+                            <div><i class="fa-solid fa-award text-amber-500 w-4"></i> <strong>Стаж:</strong> ${master.experience}</div>
+                            <div><i class="fa-solid fa-location-dot text-amber-500 w-4"></i> <strong>Выезд:</strong> ${master.districts}</div>
+                        </div>
+
+                        <p class="text-xs text-slate-600 leading-relaxed mb-4">${master.bio}</p>
+
+                        <div class="flex flex-wrap gap-1.5 mb-5">
+                            ${master.tags.map((tag) => `<span class="px-2.5 py-1 rounded-lg bg-amber-50 text-amber-800 font-semibold text-[11px]">${tag}</span>`).join("")}
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-2">
+                        <a href="${master.tgLink}?text=${encodeURIComponent("Здравствуйте, Алексей! Пишу с сайта «Починим и соберём» по поводу ремонта/сборки мебели:")}" target="_blank" rel="noopener noreferrer" class="py-3 px-3 rounded-xl font-bold text-xs text-center bg-sky-500 hover:bg-sky-600 text-white flex items-center justify-center gap-1.5 transition-all">
+                            <i class="fa-brands fa-telegram text-sm"></i>
+                            <span>@${master.tgUsername}</span>
+                        </a>
+                        <a href="#order-form" onclick="selectMasterForOrder('${master.name}')" class="py-3 px-3 rounded-xl font-bold text-xs text-center transition-all ${
+                          master.isFounder
+                            ? "wood-gradient text-white shadow-sm"
+                            : "bg-slate-900 hover:bg-slate-800 text-white"
+                        }">
+                            Заявка на сайте
+                        </a>
+                    </div>
+                </div>
+            `,
+          )
+          .join("");
+      }
+
+      function filterMasters(tag) {
+        document.querySelectorAll(".master-filter-btn").forEach((btn) => {
+          if (btn.dataset.filter === tag) {
+            btn.className =
+              "master-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white transition-all";
+          } else {
+            btn.className =
+              "master-filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-white text-slate-700 border border-slate-200 hover:border-amber-400 transition-all";
+          }
+        });
+        renderMasters(tag);
+      }
+
+      function selectMasterForOrder(masterName) {
+        const problemField = document.getElementById("client-problem");
+        if (!problemField.value.includes(masterName)) {
+          problemField.value =
+            `[Заявка для мастера: ${masterName}]\n` + problemField.value;
+        }
+        showToast(`Выбран мастер: ${masterName}`);
+      }
+
+      function prefillMasterJoin() {
+        const problemField = document.getElementById("client-problem");
+        problemField.value =
+          "Здравствуйте, Алексей! Я мастер по ремонту/сборке мебели, хочу присоединиться к вашей команде. Моя специализация и район: ";
+        showToast("Заполните ваши контакты в форме ниже");
+      }
+
+      /* ---------------------------------------------------------------------
+       * ФОРМА ЗАЯВКИ, ПРЕВЬЮ ФОТО И ИНТЕГРАЦИЯ С TELEGRAM БОТОМ
+       * --------------------------------------------------------------------- */
+      function setDistrictChip(districtText) {
+        document.getElementById("client-district").value = districtText;
+      }
+
+      function selectMessengerPreset(messengerName) {
+        const radios = document.querySelectorAll('input[name="messenger"]');
+        radios.forEach((r) => {
+          if (r.value === messengerName) r.checked = true;
+        });
+      }
+
+      function handlePhotoPreview(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById("photo-preview-img").src = e.target.result;
+          document.getElementById("photo-preview-name").textContent = file.name;
+          document
+            .getElementById("photo-preview-container")
+            .classList.remove("hidden");
+        };
+        reader.readAsDataURL(file);
+      }
+
+      function removePhotoPreview() {
+        document.getElementById("photo-upload").value = "";
+        document
+          .getElementById("photo-preview-container")
+          .classList.add("hidden");
+      }
+
+      /* Формирование текста заявки из полей формы */
+      function buildOrderSummaryText() {
+        const name =
+          document.getElementById("client-name").value.trim() || "Не указано";
+        const phone =
+          document.getElementById("client-phone").value.trim() || "Не указан";
+        const district =
+          document.getElementById("client-district").value.trim() ||
+          "Не указан";
+        const problem =
+          document.getElementById("client-problem").value.trim() ||
+          "Консультация по ремонту мебели / офисному переезду";
+        const messengerEl = document.querySelector(
+          'input[name="messenger"]:checked',
+        );
+        const messenger = messengerEl ? messengerEl.value : "Telegram";
+        const photoInput = document.getElementById("photo-upload");
+        const hasPhoto = photoInput && photoInput.files.length > 0;
+
+        return (
+          `🛠 НОВАЯ ЗАЯВКА («Починим и соберём»)\n` +
+          `👤 Клиент: ${name}\n` +
+          `📞 Телефон: ${phone}\n` +
+          `📍 Район / Метро: ${district}\n` +
+          `💬 Куда ответить: ${messenger}\n` +
+          `📷 Фото поломки: ${hasPhoto ? "Прикреплено" : "Пришлю в чат"}\n\n` +
+          `📋 Описание задачи:\n${problem}`
+        );
+      }
+
+      /* Кнопка прямой отправки заполненной формы сразу в личку @Alex_mebell */
+      function openDirectTelegramWithForm() {
+        const summary = buildOrderSummaryText();
+        const tgUrl = `https://t.me/Alex_mebell?text=${encodeURIComponent(summary)}`;
+        window.open(tgUrl, "_blank");
+      }
+
+      /* Обработка отправки формы через безопасный серверный эндпоинт /api/order (FormData) */
+      async function handleFormSubmit(event) {
+        event.preventDefault();
+        const orderSummary = buildOrderSummaryText();
+        const photoInput = document.getElementById("photo-upload");
+        const photoFile =
+          photoInput && photoInput.files[0] ? photoInput.files[0] : null;
+        const submitBtn = document.getElementById("submit-order-btn");
+
+        // Подготавливаем прямую ссылку в модальном окне на случай, если сервер /api/order еще не запущен
+        const directTgUrl = `https://t.me/Alex_mebell?text=${encodeURIComponent(orderSummary)}`;
+        document.getElementById("modal-tg-direct-link").href = directTgUrl;
+        document.getElementById("generated-order-text").textContent =
+          orderSummary;
+
+        const originalBtnHtml = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> <span>Отправка заявки...</span>`;
+
+        const sentOk = await sendToServerEndpoint(orderSummary, photoFile);
+
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnHtml;
+
+        const modalTitle = document.getElementById("success-modal-title");
+        const modalDesc = document.getElementById("success-modal-desc");
+
+        if (sentOk) {
+          modalTitle.textContent = "Заявка успешно отправлена Алексею!";
+          modalDesc.innerHTML =
+            "Ваша заявка и фото переданы в Telegram-бот мастера. Если хотите написать лично прямо сейчас — нажмите кнопку перехода в <strong>@Alex_mebell</strong>:";
+          showToast("Заявка отправлена в Telegram Алексею!");
+        } else {
+          modalTitle.textContent = "Заявка сформирована!";
+          modalDesc.innerHTML =
+            "Нажмите кнопку <strong>«Отправить в @Alex_mebell»</strong> ниже, чтобы мгновенно переслать этот расчёт Алексею в личные сообщения Telegram:";
+        }
+
+        document.getElementById("success-modal").classList.remove("hidden");
+      }
+
+      /*
+       * Безопасная отправка текста и фотографии через серверный Python-эндпоинт (/api/order)
+       * или Cloudflare Worker с использованием FormData (без свечения BOT_TOKEN в коде браузера)
+       */
+      async function sendToServerEndpoint(messageText, photoFile) {
+        const API_ENDPOINT = "/api/order"; // Ваш Python FastAPI эндпоинт или URL Cloudflare Worker
+
+        const formData = new FormData();
+        formData.append("text", messageText);
+        if (photoFile) {
+          formData.append("photo", photoFile);
+        }
+
+        try {
+          const response = await fetch(API_ENDPOINT, {
+            method: "POST",
+            body: formData,
+          });
+          if (!response.ok) return false;
+          const result = await response.json();
+          return Boolean(result && result.ok);
+        } catch (err) {
+          // Если сайт открыт на статическом хостинге без запущенного /api/order,
+          // клиент все равно сможет в 1 клик отправить готовую заявку в @Alex_mebell
+          return false;
+        }
+      }
+
+      function closeSuccessModal() {
+        document.getElementById("success-modal").classList.add("hidden");
+      }
+
+      function copyOrderText() {
+        const text = document.getElementById(
+          "generated-order-text",
+        ).textContent;
+        copyTextToClipboard(text);
+        showToast("Текст заявки скопирован в буфер обмена!");
+      }
+
+      /* ---------------------------------------------------------------------
+       * ФУНКЦИЯ «ПОДЕЛИТЬСЯ САЙТОМ» (САРАФАННОЕ РАДИО ДЛЯ СОСЕДЕЙ)
+       * --------------------------------------------------------------------- */
+      function openShareModal() {
+        document.getElementById("share-modal").classList.remove("hidden");
+      }
+
+      function closeShareModal() {
+        document.getElementById("share-modal").classList.add("hidden");
+      }
+
+      async function triggerNativeShare() {
+        const shareData = {
+          title:
+            "Починим и соберём — Мастер Алексей (ремонт мебели и офисные переезды в Москве)",
+          text: "Рекомендую отличного частного мастера: ремонт вырванных петель, направляющих, устранение скрипа кроватей и сборка офисной мебели при переездах!",
+          url: window.location.href,
+        };
+
+        if (navigator.share) {
+          try {
+            await navigator.share(shareData);
+          } catch (err) {
+            // Пользователь отменил шеринг
+          }
+        } else {
+          copySiteLink();
+        }
+      }
+
+      function copySiteLink() {
+        const promoText = `Контакты мастера («Починим и соберём», Алексей, стаж 7+ лет — ремонт вырванных петель от 5 000 ₽, направляющих от 5 000 ₽, устранение скрипа кровати от 7 000 ₽, офисные переезды от 600 ₽. Будни Пн–Пт 09:00–18:00, Войковский р-н / САО и вся Москва). Telegram: https://t.me/Alex_mebell | Сайт: ${window.location.href}`;
+        copyTextToClipboard(promoText);
+        closeShareModal();
+        showToast(
+          "Визитка с @Alex_mebell скопирована! Можете переслать соседям или друзьям.",
+        );
+      }
+
+      /* Безопасное копирование в буфер обмена (работает даже во фреймах) */
+      function copyTextToClipboard(text) {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          document.execCommand("copy");
+        } catch (err) {
+          console.error("Не удалось скопировать текст", err);
+        }
+        document.body.removeChild(textarea);
+      }
+
+      /* Всплывающее уведомление (Toast) */
+      function showToast(message) {
+        const toast = document.getElementById("toast");
+        const msgEl = document.getElementById("toast-message");
+        msgEl.textContent = message;
+        toast.classList.remove("translate-y-24", "opacity-0");
+        setTimeout(() => {
+          toast.classList.add("translate-y-24", "opacity-0");
+        }, 3500);
+      }
+    </script>
+  </body>
+</html>
